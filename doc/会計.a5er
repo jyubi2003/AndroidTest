@@ -1,0 +1,215 @@
+﻿# A5:ER FORMAT:09
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  http://www.wind.sannet.ne.jp/m_matsu/developer/a5m2/
+
+[Manager]
+ProjectName=esmex
+Author=H.Y
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",7,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=7
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=5
+RDBMSTypeName=MySQL
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+ShowTag=1
+ShowCommonAttributes=0
+
+[Relation]
+Entity1=Application
+Entity2=JOURNAL
+RelationType1=1
+RelationType2=3
+Fields1=ID
+Fields2=
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1610,3651,4499,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=161
+Bar2=365
+Bar3=450
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=Application
+LName=適用マスタ
+Comment=
+TableOption=
+Page=Main
+Left=950
+Top=800
+Field="ID","ID","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="ソート順","SortOrder","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="適用","Application","@VARCHAR(400)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20150831184121
+Position="Main",950,800
+
+[Relation]
+Entity1=Customer
+Entity2=JOURNAL
+RelationType1=1
+RelationType2=3
+Fields1=ID
+Fields2=
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1554,5415,3361,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=155
+Bar2=542
+Bar3=336
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=Customer
+LName=相手先
+Comment=
+TableOption=
+Page=Main
+Left=950
+Top=550
+Field="ID","ID","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="相手先","Cutomer","@VARCHAR(60)","NOT NULL",,"","",$FFFFFFFF,""
+Field="電話番号","TelephoneNo","@CHAR(11)",,,"","",$FFFFFFFF,""
+Field="住所","Address","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="メールアドレス","MailAddress","@VARCHAR(400)",,,"","",$FFFFFFFF,""
+Field="備考","Remarks","@VARCHAR(400)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20150831183244
+Position="Main",950,550,448,173
+
+[Relation]
+Entity1=Unit
+Entity2=JOURNAL
+RelationType1=2
+RelationType2=3
+Fields1=ID
+Fields2=ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1554,7011,2283,R,R
+Dependence=1
+Caption=
+PName=
+LineMode=0
+Bar1=155
+Bar2=701
+Bar3=228
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=Unit
+LName=単位マスタ
+Comment=
+TableOption=
+Page=Main
+Left=950
+Top=400
+Field="ID","ID","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="単位名","Unit","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20150831182138
+Position="Main",950,400,340,62
+
+[Relation]
+Entity1=Accounts
+Entity2=JOURNAL
+RelationType1=1
+RelationType2=3
+Fields1=AccountCode
+Fields2=
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1036,8964,1528,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=104
+Bar2=896
+Bar3=153
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=Accounts
+LName=勘定科目
+Comment=
+TableOption=
+Page=MAIN
+Left=950
+Top=200
+Field="科目コード","AccountCode","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="科目名","AccountName","@VARCHAR(40)","NOT NULL",,"","",$FFFFFFFF,""
+Field="貸借区分","BalanceClass","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="ソート順（借）","DebitSortOrder","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="ソート順（貸）","CreditSortOrder","@INT","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20150831183651
+Position="MAIN",950,200,458,136
+
+[Entity]
+PName=JOURNAL
+LName=仕訳テーブル
+Comment=
+TableOption=
+Page=MAIN
+Left=200
+Top=150
+Field="ID","ID","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="取引日時","TranDateTime","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="借方勘定科目","DevitAccounts","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="借方消費税","DevitConsumptionTax","@DOUBLE","NOT NULL",,"","",$FFFFFFFF,""
+Field="貸方勘定科目","CreditAccounts","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="貸方消費税","CreditConsumptionTax","@DOUBLE","NOT NULL",,"","",$FFFFFFFF,""
+Field="金額","Amount","@DECIMAL(11,2)","NOT NULL",,"","",$FFFFFFFF,""
+Field="単位","Unit","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="相手先","Customer","@INT",,,"","",$FFFFFFFF,""
+Field="適用","Application","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="備考","Remarks","@VARCHAR(400)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20150831184222
+Position="MAIN",200,150,540,300
