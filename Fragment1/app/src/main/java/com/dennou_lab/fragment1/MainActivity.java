@@ -1,25 +1,21 @@
 package com.dennou_lab.fragment1;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends ActionBarActivity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,ItemFragment.OnFragmentInteractionListener{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -49,16 +45,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (position == 0){
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, ImageFragment.newInstance(R.drawable.tulips))
-                    .commit();
-        } else {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                    .commit();
-        }
+        fragmentManager.beginTransaction()
+                .add(R.id.container,PlaceholderFragment.newInstance(position + 1))
+                .commit();
+
     }
 
     public void onSectionAttached(int number) {
@@ -102,13 +94,19 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intentChengeUi = new Intent();
+            intentChengeUi.setClassName(this.getPackageName(), this.getPackageName() + ".TabActivity");
+
+            startActivity(intentChengeUi);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(String id) {
+
     }
 
     /**
@@ -140,6 +138,24 @@ public class MainActivity extends AppCompatActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            int position = getArguments().getInt(ARG_SECTION_NUMBER);
+
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            if(position == 3){
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_container,ImageFragment.newInstance(R.drawable.tulips))
+                        .commit();
+            }
+            else if(position == 2){
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_container, TextFragment.newInstance())
+                        .commit();
+            }
+            else if(position == 1){
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_container, ItemFragment.newInstance())
+                        .commit();
+            }
             return rootView;
         }
 
@@ -152,3 +168,4 @@ public class MainActivity extends AppCompatActivity
     }
 
 }
+
