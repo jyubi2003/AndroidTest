@@ -1,0 +1,200 @@
+私の勉強メモです。
+いろいろなところを参考にさせていただいています。ブログ記事や本を書いて下さった方々、本当にありがとうございます。
+
+Fragmentのライフサイクルは継承元のActivityの影響を常に受ける。
+Fragmentとして実装する大きな利点の1つがそれぞれが別のライフサイクルを持つことができること。
+
+Fragmentのライフサイクルは以下のようになっている。
+簡単な説明はソースファイルに書きこんである。
+
+
+-
+Fragmentが生成された
+
+-
+　↓
+onAttach()
+　↓
+onCreate()
+　↓
+onCreateView()
+　↓
+onActivityCreated()
+　↓
+onStart()
+　↓
+onResume()
+　↓
+
+-
+Fragmentがアクティブな状態
+　↓
+ユーザーが戻るなどを操作して
+Fragmentが置き換えられた
+
+-
+　↓
+onPause()
+　↓
+onStop()
+　↓
+onDestroyView()
+　↓
+onDestroy()
+　↓
+onDetach()
+　↓
+
+-
+Fragmentが廃棄された
+
+-
+
+Activityの場合と同様に全てのメソッドを実装する必要はない。
+重要なのは、onCreate(), onCreateView(), onActivityCreated(),onResume(),onPause() あたり。
+
+Fragmentのみに存在するコールバックメソッド
+
+onAttach(Activity)
+　FragmentがActivityに関連付けられた時に一度だけ呼ばれる。
+　Fragmentは自身と関連付けられているActivityのインスタンスを得ることが出来る。
+（Fragmentは様々なActivityで再利用できるように、具体的なActivityを知らない。）
+
+onCreateView(LayoutInflater,ViewGroup,Bundle)
+　FragmentがView階層に関連付けられる時に呼ばれる。
+　Fragment で表示する Viewを戻り値として返すメソッド。
+　ただし、FragmentでUIを提供しない時（目に見えないFragmentの場合）Viewを構築せずnullを返してよい。
+
+onActivityCreated(Bundle)
+　Fragmentが関連付いているActivityのonCreate()が呼ばれた直後に呼び出される。
+　ListView にAdapter を セットするなどの時は、Viewが作成された後でなければならないのでこのメソッドで行う。
+　今までActivityのonCreate()で行なっていた処理はこのメソッドに記述しておくと良い。
+
+onDestroyView()
+　Fragmentが関連付いているView階層が取り除かれた時に呼ばれる。
+
+onDetach()
+　Fragmentが関連付いているActivityの関連が取り除かれる時に呼ばれる。
+
+前回のエントリーFragment版Hello Worldを上記のメソッド全部入りにしてみた。
+
+package com.sakurafish.android.fragmenttest.helloworld;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+/**
+ * FragmentでHello World
+ * 
+ * @author sakura
+ */
+public class FragmentTest extends Fragment {
+    static final String TAG = "FragmentTest";
+
+    /***
+     * Activityに関連付けされた際に一度だけ呼び出される
+     */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        Log.d(TAG, "onAttach");
+    }
+
+    /***
+     * Fragmentの初期化処理を行う
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
+    }
+
+    /***
+     * FragmentのView階層を生成し戻り値として返す
+     */
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView");
+        View root = inflater.inflate(R.layout.fragment1, container);
+
+        /** 戻り値としてインフレートした View を返す */
+        return root;
+    }
+
+    /***
+     * 親となるActivityの「onCreate」の終了を知らせる
+     */
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "onActivityCreated");
+    }
+
+    /***
+     * Activityの「onStart」に基づき開始される
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+    }
+
+    /***
+     * Activityの「onResume」に基づき開始される
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+    }
+
+    /***
+     * Activityが「onPause」になった場合や、Fragmentが変更更新されて操作を受け付けなくなった場合に呼び出される
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
+    /***
+     * フォアグラウンドでなくなった場合に呼び出される
+     */
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    /***
+     * Fragmentの内部のViewリソースの整理を行う
+     */
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "onDestroyView");
+    }
+
+    /***
+     * Fragmentが破棄される時、最後に呼び出される
+     */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+    }
+
+    /***
+     * Activityの関連付けから外された時に呼び出される
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d(TAG, "onDetach");
+    }
+}

@@ -8,13 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
-import com.dennou_lab.fragment1.dummy.DummyContent;
+import com.dennou_lab.fragment1.dummy.TranContent;
 
 /**
  * A fragment representing a list of Items.
  * <p />
  * <p />
- * Activities containing this fragment MUST implement the {@link Callbacks}
+ * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
 public class ItemFragment extends ListFragment {
@@ -37,17 +37,26 @@ public class ItemFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        // TODO: Change Adapter to display your content
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS));
     }
-
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        // TODO: Change Adapter to display your content
+        try {
+            TranContent tranContent = new TranContent();
+            tranContent.ReadContent(activity);
+            // setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+            setListAdapter(new ArrayAdapter<TranContent.TranItem>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_1,
+                    android.R.id.text1,
+                    tranContent.ITEMS));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -70,7 +79,7 @@ public class ItemFragment extends ListFragment {
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            mListener.onFragmentInteraction(TranContent.ITEMS.get(position).id);
         }
     }
 
