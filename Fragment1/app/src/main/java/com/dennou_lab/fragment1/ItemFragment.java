@@ -37,20 +37,26 @@ public class ItemFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        // TODO: Change Adapter to display your content
-        // setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
-        setListAdapter(new ArrayAdapter<TranContent.TranItem>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                TranContent.ITEMS));
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        // TODO: Change Adapter to display your content
+        try {
+            TranContent tranContent = new TranContent();
+            tranContent.ReadContent(activity);
+            // setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+            setListAdapter(new ArrayAdapter<TranContent.TranItem>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_1,
+                    android.R.id.text1,
+                    tranContent.ITEMS));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {

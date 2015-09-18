@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import android.content.Context;
 /**
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
@@ -36,8 +36,20 @@ public class TranContent {
         //addItem(new TranItem("1", "Item 1"));
         //addItem(new TranItem("2", "Item 2"));
         //addItem(new TranItem("3", "Item 3"));
+    }
 
-        NCMB.initialize(null, "2d2329a32f2b834527eb0d2a301032f2a27df4dd6814f95cb7e966a6f832020c", "cbf48ac77f3edfff2319c4185d7def9e11aa62d38b6bd5c38570d114bf25afb9");
+    /**
+     * constructor
+     */
+    public TranContent(){
+    }
+
+    /**
+     * Read Content
+     */
+    public void ReadContent(Context context){
+
+        NCMB.initialize(context, "2d2329a32f2b834527eb0d2a301032f2a27df4dd6814f95cb7e966a6f832020c", "cbf48ac77f3edfff2319c4185d7def9e11aa62d38b6bd5c38570d114bf25afb9");
 
         NCMBQuery<NCMBObject> query = NCMBQuery.getQuery("TestClass");
         //query.whereEqualTo("message", "Hello, NCMB!");
@@ -54,18 +66,42 @@ public class TranContent {
                 }
             }
         });
-
     }
 
+    /**
+     * add item
+     */
     private static void addItem(TranItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
+    /**
+     * clear item
+     */
     private static void clrItem() {
         ITEMS.clear();
         ITEM_MAP.clear();
     }
+
+    /**
+     * post data
+     */
+    private void PostData(){
+        NCMBObject TestClass = new NCMBObject("TestClass");
+        TestClass.put("message", "Hello, NCMB!");
+        TestClass.saveInBackground();
+    }
+
+    /*
+    private void dispMessage(NCMBObject message){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mParent);
+
+        alertDialogBuilder.setTitle("データ取得");
+        alertDialogBuilder.setMessage(message.getString("message"));
+        alertDialogBuilder.show();
+    }
+    */
 
     /**
      * A dummy item representing a piece of content.
@@ -84,19 +120,4 @@ public class TranContent {
             return content;
         }
     }
-    private void PostData(){
-        NCMBObject TestClass = new NCMBObject("TestClass");
-        TestClass.put("message", "Hello, NCMB!");
-        TestClass.saveInBackground();
-    }
-
-    /*
-    private void dispMessage(NCMBObject message){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mParent);
-
-        alertDialogBuilder.setTitle("データ取得");
-        alertDialogBuilder.setMessage(message.getString("message"));
-        alertDialogBuilder.show();
-    }
-    */
 }
