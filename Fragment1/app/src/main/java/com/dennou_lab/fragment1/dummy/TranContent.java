@@ -22,21 +22,14 @@ import android.content.Context;
 public class TranContent {
 
     /**
-     * An array of sample (dummy) items.
+     * An array of TranData items.
      */
     public static List<TranItem> ITEMS = new ArrayList<TranItem>();
 
     /**
-     * A map of sample (dummy) items, by ID.
+     * A map of TranData items, by ID.
      */
     public static Map<String, TranItem> ITEM_MAP = new HashMap<String, TranItem>();
-
-    static {
-        // Add 3 sample items.
-        //addItem(new TranItem("1", "Item 1"));
-        //addItem(new TranItem("2", "Item 2"));
-        //addItem(new TranItem("3", "Item 3"));
-    }
 
     /**
      * constructor
