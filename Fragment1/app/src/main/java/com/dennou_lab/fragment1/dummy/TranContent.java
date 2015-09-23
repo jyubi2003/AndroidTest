@@ -2,13 +2,15 @@ package com.dennou_lab.fragment1.dummy;
 
 import android.app.AlertDialog;
 
-import com.nifty.cloud.mb.FindCallback;
-import com.nifty.cloud.mb.NCMB;
-import com.nifty.cloud.mb.NCMBException;
-import com.nifty.cloud.mb.NCMBObject;
-import com.nifty.cloud.mb.NCMBQuery;
+import com.nifty.cloud.mb.core.DoneCallback;
+import com.nifty.cloud.mb.core.FindCallback;
+import com.nifty.cloud.mb.core.NCMB;
+import com.nifty.cloud.mb.core.NCMBException;
+import com.nifty.cloud.mb.core.NCMBObject;
+import com.nifty.cloud.mb.core.NCMBQuery;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +46,7 @@ public class TranContent {
 
         NCMB.initialize(context, "2d2329a32f2b834527eb0d2a301032f2a27df4dd6814f95cb7e966a6f832020c", "cbf48ac77f3edfff2319c4185d7def9e11aa62d38b6bd5c38570d114bf25afb9");
 
-        NCMBQuery<NCMBObject> query = NCMBQuery.getQuery("TestClass");
+        NCMBQuery<NCMBObject> query = new NCMBQuery<>("TestClass");
         //query.whereEqualTo("message", "Hello, NCMB!");
         query.findInBackground(new FindCallback<NCMBObject>() {
             @Override
@@ -52,10 +54,10 @@ public class TranContent {
                 clrItem();
                 if (!result.isEmpty()) {
                     for (int i=0; i<result.size(); i++){
-                        addItem(new TranItem("item", result.get(i).toString()));
+                        addItem(new TranItem(result.get(i)));
                     }
                 } else {
-                    addItem(new TranItem("item", "取引はありません"));
+                    addItem(new TranItem(new NCMBObject("TestApp1")));
                 }
             }
         });
@@ -83,7 +85,16 @@ public class TranContent {
     private void PostData(){
         NCMBObject TestClass = new NCMBObject("TestClass");
         TestClass.put("message", "Hello, NCMB!");
-        TestClass.saveInBackground();
+        TestClass.saveInBackground(new DoneCallback() {
+            @Override
+            public void done(NCMBException e) {
+                if(e != null){
+                    //保存成功
+                }else {
+                    //保存失敗
+                }
+            }
+        });
     }
 
     /*
@@ -102,10 +113,38 @@ public class TranContent {
     public static class TranItem {
         public String id;
         public String content;
+        public String objectId;
+        public String Remarks;
+        public String Application;
+        public String Customer;
+        public String message;
+        public Date TranDateTime;
+        public String DebitAccount;
+        public String Unit;
+        public String Amount;
+        public String Tax;
+        public String CreditAccount;
+        public Date createDate;
+        public Date updateDate;
+        public String acl;
 
-        public TranItem(String id, String content) {
-            this.id = id;
-            this.content = content;
+        public TranItem(NCMBObject content) {
+            this.id = content.getString("objectId");
+            this.content = content.getString("content");
+            this.content = content.getString("objectId");
+            this.Remarks = content.getString("Remarks");
+            this.Application = content.getString("Application");
+            this.Customer = content.getString("Customer");
+            this.message = content.getString("message");
+            this.TranDateTime = content.getDate("TranDateTime");
+            this.DebitAccount = content.getString("DebitAccount");
+            this.Unit = content.getString("Unit");
+            this.Amount = content.getString("Amount");
+            this.Tax = content.getString("Tax");
+            this.CreditAccount = content.getString("CreditAccount");
+            this.createDate = content.getCreateDate();
+            this.updateDate = content.getUpdateDate();
+            this.acl = content.getString("acl");
         }
 
         @Override

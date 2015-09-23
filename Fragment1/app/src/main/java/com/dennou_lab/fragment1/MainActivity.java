@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
-import com.nifty.cloud.mb.*;
+import com.nifty.cloud.mb.core.*;
 
 
 public class MainActivity extends ActionBarActivity

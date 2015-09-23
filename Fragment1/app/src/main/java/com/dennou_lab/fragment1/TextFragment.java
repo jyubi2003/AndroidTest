@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.*;
-import com.nifty.cloud.mb.*;
+import com.nifty.cloud.mb.core.*;
 import android.app.AlertDialog;
 
 
