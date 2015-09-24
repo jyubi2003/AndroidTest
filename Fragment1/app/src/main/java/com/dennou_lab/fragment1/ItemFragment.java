@@ -79,7 +79,7 @@ public class ItemFragment extends ListFragment {
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(TranContent.ITEMS.get(position).id);
+            mListener.onFragmentInteraction(TranContent.ITEMS.get(position).objectId);
         }
     }
 

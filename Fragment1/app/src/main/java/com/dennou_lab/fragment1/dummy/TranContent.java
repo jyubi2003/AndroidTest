@@ -8,7 +8,9 @@ import com.nifty.cloud.mb.NCMBException;
 import com.nifty.cloud.mb.NCMBObject;
 import com.nifty.cloud.mb.NCMBQuery;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,10 +54,10 @@ public class TranContent {
                 clrItem();
                 if (!result.isEmpty()) {
                     for (int i=0; i<result.size(); i++){
-                        addItem(new TranItem("item", result.get(i).toString()));
+                        addItem(new TranItem(result.get(i)));
                     }
                 } else {
-                    addItem(new TranItem("item", "取引はありません"));
+                    addItem(new TranItem(new NCMBObject("No Item.")));
                 }
             }
         });
@@ -66,7 +68,7 @@ public class TranContent {
      */
     private static void addItem(TranItem item) {
         ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
+        ITEM_MAP.put(item.objectId, item);
     }
 
     /**
@@ -97,20 +99,45 @@ public class TranContent {
     */
 
     /**
-     * A dummy item representing a piece of content.
+     * A data item representing a piece of content.
      */
     public static class TranItem {
-        public String id;
-        public String content;
+        public String objectId;
+        public Date TranDateTime;
+        public String CreditAccount;
+        public String DebitAccount;
+        public String Application;
+        public String Customer;
+        public BigDecimal Amount;
+        public String Unit;
+        public String Tax;
+        public String Remarks;
+        public String message;
+        public Date createDate;
+        public Date updateDate;
+        public String acl;
 
-        public TranItem(String id, String content) {
-            this.id = id;
-            this.content = content;
+
+        public TranItem(NCMBObject content) {
+            this.objectId = content.getString("objectId");
+            this.TranDateTime = content.getDate("TranDateTime");
+            this.CreditAccount = content.getString("CreditAccount");
+            this.DebitAccount = content.getString("DebitAccount");
+            this.Application = content.getString("Application");
+            this.Customer = content.getString("Customer");
+            this.Amount = new BigDecimal(content.getString("Amount"));
+            this.Unit = content.getString("Unit");
+            this.Tax = content.getString("Tax");
+            this.Remarks = content.getString("Remarks");
+            this.message = content.getString("message");
+            this.createDate = content.getDate("createDate");
+            this.updateDate = content.getDate("updateDate");
+            this.acl = content.getString("acl");
         }
 
         @Override
         public String toString() {
-            return content;
+            return TranDateTime.toString() + " " + CreditAccount + " " + Amount.toString();
         }
     }
 }
