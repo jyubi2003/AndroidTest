@@ -19,6 +19,7 @@ import com.dennou_lab.fragment1.dummy.TranContent;
  */
 public class ItemFragment extends ListFragment {
 
+
     private OnFragmentInteractionListener mListener;
 
     // TODO: Rename and change types of parameters
