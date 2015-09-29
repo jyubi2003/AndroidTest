@@ -49,17 +49,17 @@ public class TextFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         // HTML タグ付き文字列の作成
         String html = "<font color=\"silver\"><b><big>Nintendo</big></b><sup><small>&reg;</small></sup></font>";
         // fromHtml() の引数にタグ付き文字列を渡す
         CharSequence source = Html.fromHtml(html);
-        // TextView textview = new TextView(this);
-        // fromHtml() の戻り値を setText() に引数として渡し TextView に表示
-        TextView textView = (TextView)inflater.inflate(R.layout.fragment_text, container, false);
+        // Inflate the layout for this fragment
+        View view =inflater.inflate(R.layout.fragment_text, container, false);
+        // inflateしたレイアウト内のTextView要素をid指定で参照する
+        TextView textView = (TextView)view.findViewById(R.id.text1);
+        // fromHtml() の戻り値を setText() に引数として渡し TextView に設定
         textView.setText(source);
-        // setContentView(textview, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-        return textView;
+        return view;
     }
 
     @Override

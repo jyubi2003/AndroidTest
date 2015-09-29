@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import android.content.Context;
+import android.text.Html;
+
 /**
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
@@ -51,13 +53,17 @@ public class TranContent {
         query.findInBackground(new FindCallback<NCMBObject>() {
             @Override
             public void done(List<NCMBObject> result, NCMBException e) {
-                clrItem();
-                if (!result.isEmpty()) {
-                    for (int i=0; i<result.size(); i++){
-                        addItem(new TranItem(result.get(i)));
+                if (result != null) {
+                    clrItem();
+                    if (!result.isEmpty()) {
+                        for (int i = 0; i < result.size(); i++) {
+                            addItem(new TranItem(result.get(i)));
+                        }
+                    } else {
+                        addItem(new TranItem(new NCMBObject("No Item.")));
                     }
-                } else {
-                    addItem(new TranItem(new NCMBObject("No Item.")));
+                } else {    /* result == null */
+                    e.printStackTrace();
                 }
             }
         });
@@ -137,7 +143,18 @@ public class TranContent {
 
         @Override
         public String toString() {
-            return TranDateTime.toString() + " " + CreditAccount + " " + Amount.toString();
+            // HTML タグ付き文字列の作成
+            String html = "<p><font color=\"silver\"><b><big>" + TranDateTime.toString() + "</big></b><sup><small>JST</small></sup></font> " +
+                    "<font color=\"black\"><b><big>" + CreditAccount + "</big></b><sup><small>さま</small></sup></font><br>" +
+                    "<font color=\"red\"><b><big>" + Amount.toString() + "</big></b><sup><small>円</small></sup></font><br></p>";
+            // fromHtml() の引数にタグ付き文字列を渡す
+            // CharSequence source = Html.fromHtml(html);
+            CharSequence source = Html.fromHtml(html);
+            StringBuffer outString = new StringBuffer();
+            outString.append(source);
+            return outString.toString();
         }
+        // CharSequence source = Html.fromHtml(html);
+
     }
 }
