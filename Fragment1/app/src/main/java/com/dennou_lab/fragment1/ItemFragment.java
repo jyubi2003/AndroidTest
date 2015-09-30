@@ -46,14 +46,17 @@ public class ItemFragment extends ListFragment {
 
         // TODO: Change Adapter to display your content
         try {
-            TranContent tranContent = new TranContent();
+            TranContent tranContent = new TranContent(activity, android.R.layout.simple_list_item_1, TranContent.ITEMS);
             tranContent.ReadContent(activity);
             // setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+            /*
             setListAdapter(new ArrayAdapter<TranContent.TranItem>(
                     getActivity(),
                     android.R.layout.simple_list_item_1,
                     android.R.id.text1,
                     tranContent.ITEMS));
+            */
+            setListAdapter(tranContent);
         } catch (Exception e) {
             e.printStackTrace();
         }

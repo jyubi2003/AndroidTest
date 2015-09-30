@@ -2,6 +2,7 @@ package com.dennou_lab.fragment1.dummy;
 
 import android.app.AlertDialog;
 
+import com.dennou_lab.fragment1.R;
 import com.nifty.cloud.mb.FindCallback;
 import com.nifty.cloud.mb.NCMB;
 import com.nifty.cloud.mb.NCMBException;
@@ -16,6 +17,12 @@ import java.util.List;
 import java.util.Map;
 import android.content.Context;
 import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -23,7 +30,7 @@ import android.text.Html;
  * <p/>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class TranContent {
+public class TranContent extends ArrayAdapter<TranContent.TranItem> {
 
     /**
      * An array of TranData items.
@@ -36,11 +43,41 @@ public class TranContent {
     public static Map<String, TranItem> ITEM_MAP = new HashMap<String, TranItem>();
 
     /**
+     * LayoutInflater Object to Create View..
+     */
+    private LayoutInflater layoutInflater_;
+
+    /**
      * constructor
      */
-    public TranContent(){
+    public TranContent(Context context, int textViewResourceId, List<TranContent.TranItem> objects){
+        super(context, textViewResourceId, objects);
+        layoutInflater_ = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // 特定の行(position)のデータを得る
+        TranContent.TranItem item = (TranContent.TranItem)getItem(position);
+
+        // convertViewは使い回しされている可能性があるのでnullの時だけ新しく作る
+        if (null == convertView) {
+            convertView = layoutInflater_.inflate(android.R.layout.simple_list_item_1, null);
+        }
+
+        // TranContentのデータをViewのWidgetにセットする
+        /*
+        ImageView imageView;
+        imageView = (ImageView)convertView.findViewById(R.id.image);
+        imageView.setImageBitmap(item.getImageData());
+        */
+
+        TextView textView;
+        textView = (TextView)convertView.findViewById(android.R.id.text1);
+        textView.setText(item.toCharSequence());
+
+        return convertView;
+    }
     /**
      * Read Content
      */
@@ -75,6 +112,14 @@ public class TranContent {
     private static void addItem(TranItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.objectId, item);
+    }
+
+    /**
+     * get item
+     */
+    @Override
+    public TranContent.TranItem getItem(int position) {
+        return ITEMS.get(position);
     }
 
     /**
@@ -141,20 +186,31 @@ public class TranContent {
             this.acl = content.getString("acl");
         }
 
+        /**
+         * public String toString()
+         * description インスタンスの内容を文字列で返す
+         */
         @Override
         public String toString() {
-            // HTML タグ付き文字列の作成
+            CharSequence source = toCharSequence();
+            StringBuffer outString = new StringBuffer();
+            outString.append(source);
+            return outString.toString();
+        }
+
+        /**
+         * public CharSequence toCaarSequence()
+         * description HTML タグ付き文字列の作成
+         */
+        public CharSequence toCharSequence() {
+            //
             String html = "<p><font color=\"silver\"><b><big>" + TranDateTime.toString() + "</big></b><sup><small>JST</small></sup></font> " +
                     "<font color=\"black\"><b><big>" + CreditAccount + "</big></b><sup><small>さま</small></sup></font><br>" +
                     "<font color=\"red\"><b><big>" + Amount.toString() + "</big></b><sup><small>円</small></sup></font><br></p>";
             // fromHtml() の引数にタグ付き文字列を渡す
             // CharSequence source = Html.fromHtml(html);
             CharSequence source = Html.fromHtml(html);
-            StringBuffer outString = new StringBuffer();
-            outString.append(source);
-            return outString.toString();
+            return source;
         }
-        // CharSequence source = Html.fromHtml(html);
-
     }
 }
