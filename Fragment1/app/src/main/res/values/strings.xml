@@ -1,16 +1,16 @@
 <resources>
-    <string name="app_name">Fragment1</string>
+    <string name="app_name">BookKeeper</string>
 
-    <string name="title_section1">Item View</string>
-    <string name="title_section2">Text View</string>
-    <string name="title_section3">Image View</string>
+    <string name="title_section1">ホーム</string>
+    <string name="title_section2">取引一覧</string>
+    <string name="title_section3">取引入力</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_example">Example action</string>
+    <string name="action_example">トースト</string>
 
-    <string name="action_settings">Toggle Drawer and Tab</string>
+    <string name="action_settings">ドロア・タブ切替</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

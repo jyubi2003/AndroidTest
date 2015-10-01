@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+
 import com.nifty.cloud.mb.*;
 
 
@@ -32,7 +34,14 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // アイコン表示を有効にする
+        // requestWindowFeature(Window.FEATURE_LEFT_ICON);
+
         setContentView(R.layout.activity_main);
+
+        // アイコン表示
+        // setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.neptune);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -143,17 +152,17 @@ public class MainActivity extends ActionBarActivity
             int position = getArguments().getInt(ARG_SECTION_NUMBER);
 
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            if(position == 3){
+            if(position == 1){
                 fragmentManager.beginTransaction()
-                        .replace(R.id.main_container,ImageFragment.newInstance(R.drawable.tulips))
+                        .replace(R.id.main_container,ImageFragment.newInstance(R.drawable.yokohama))
                         .commit();
             }
-            else if(position == 2){
+            else if(position == 3){
                 fragmentManager.beginTransaction()
                         .replace(R.id.main_container, TextFragment.newInstance())
                         .commit();
             }
-            else if(position == 1){
+            else if(position == 2){
                 fragmentManager.beginTransaction()
                         .replace(R.id.main_container, ItemFragment.newInstance())
                         .commit();
