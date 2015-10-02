@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity$DummySectionFragment" >
+
+    <Button
+        android:id="@+id/buttonAddTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:onClick="onClick"
+        android:text="@string/label_add_tab" />
+
+    <Button
+        android:id="@+id/buttonRemoveTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonAddTab"
+        android:layout_below="@+id/buttonAddTab"
+        android:onClick="onClick"
+        android:text="@string/label_remove_tab" />
+
+    <Button
+        android:id="@+id/buttonSelectTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonRemoveTab"
+        android:layout_below="@+id/buttonRemoveTab"
+        android:onClick="onClick"
+        android:text="@string/label_select_tab" />
+
+    <Button
+        android:id="@+id/buttonShowIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonSelectTab"
+        android:layout_below="@+id/buttonSelectTab"
+        android:onClick="onClick"
+        android:text="@string/label_set_icon" />
+
+    <Button
+        android:id="@+id/buttonSwitchMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonShowIcon"
+        android:layout_below="@+id/buttonShowIcon"
+        android:onClick="onClick"
+        android:text="@string/label_mode_list" />
+
+    <Button
+        android:id="@+id/buttonSwitchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonSwitchMode"
+        android:layout_below="@+id/buttonSwitchMode"
+        android:onClick="onClick"
+        android:text="@string/label_custom_view" />
+
+</RelativeLayout><!-- From: file:/C:/GitHub/AndroidTest/ActionBarExample2/app/src/main/res/layout/fragment_section1.xml -->
