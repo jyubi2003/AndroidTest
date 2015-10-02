@@ -46,3 +46,5 @@ Component-Tools.
 
 (This import summary is for your information only, and can be deleted
 after import once you are satisfied with the results.)
+
+http://www.atmarkit.co.jp/ait/articles/1305/13/news009.html
