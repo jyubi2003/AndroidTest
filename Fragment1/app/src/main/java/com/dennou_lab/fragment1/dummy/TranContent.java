@@ -10,6 +10,7 @@ import com.nifty.cloud.mb.NCMBObject;
 import com.nifty.cloud.mb.NCMBQuery;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -204,9 +205,13 @@ public class TranContent extends ArrayAdapter<TranContent.TranItem> {
          */
         public CharSequence toCharSequence() {
             //
-            String html = "<p><font color=\"silver\"><b><big>" + TranDateTime.toString() + "</big></b><sup><small>JST</small></sup></font> " +
-                    "<font color=\"black\"><b><big>" + CreditAccount + "</big></b><sup><small>さま</small></sup></font><br>" +
-                    "<font color=\"red\"><b><big>" + Amount.toString() + "</big></b><sup><small>円</small></sup></font><br></p>";
+            String html = "<p><font color=#000000>" + DateFormat.getDateInstance().format(TranDateTime) + "<small>JST</small></font> " +
+                    "<font color=#000000>" + CreditAccount + "</font>" +
+                    "<font color=#000000>" + DebitAccount + "</font>" +
+                    "<font color=#000000>\\" + Amount.toString() + "円</font>" +
+                    "<font color=#000000>税\\" + Tax.toString() + "円</font><br>" +
+                    "<font color=#000000>" + Application + "</font>" +
+                    "<font color=#000000>" + Customer + "様</font><br></p>";
             // fromHtml() の引数にタグ付き文字列を渡す
             // CharSequence source = Html.fromHtml(html);
             CharSequence source = Html.fromHtml(html);

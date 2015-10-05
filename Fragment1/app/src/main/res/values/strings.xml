@@ -4,6 +4,8 @@
     <string name="title_section1">ホーム</string>
     <string name="title_section2">取引一覧</string>
     <string name="title_section3">取引入力</string>
+    <string name="title_section4">予算一覧</string>
+    <string name="title_section5">予算入力</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
