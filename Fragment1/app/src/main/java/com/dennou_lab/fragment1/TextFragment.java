@@ -50,13 +50,13 @@ public class TextFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // HTML タグ付き文字列の作成
-        String html = "<font color=\"silver\"><b><big>Nintendo</big></b><sup><small>&reg;</small></sup></font>";
+        String html = "<font color=#808080><b><big>購入入力</big></b><sup><small>&reg;</small></sup></font>";
         // fromHtml() の引数にタグ付き文字列を渡す
         CharSequence source = Html.fromHtml(html);
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_text, container, false);
         // inflateしたレイアウト内のTextView要素をid指定で参照する
-        TextView textView = (TextView)view.findViewById(R.id.text1);
+        TextView textView = (TextView)view.findViewById(R.id.textStaticKounyu);
         // fromHtml() の戻り値を setText() に引数として渡し TextView に設定
         textView.setText(source);
         return view;
