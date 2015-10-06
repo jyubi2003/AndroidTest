@@ -66,6 +66,8 @@ public class TextFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mParent = activity;
+
+
     }
 
 }
