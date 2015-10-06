@@ -1,8 +1,5 @@
-package com.dennou_lab.fragment1.dummy;
+package com.dennou_lab.fragment1.data;
 
-import android.app.AlertDialog;
-
-import com.dennou_lab.fragment1.R;
 import com.nifty.cloud.mb.FindCallback;
 import com.nifty.cloud.mb.NCMB;
 import com.nifty.cloud.mb.NCMBException;
@@ -22,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -31,7 +27,7 @@ import android.widget.TextView;
  * <p/>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class TranContent extends ArrayAdapter<TranContent.TranItem> {
+public class TranContent {
 
     /**
      * An array of TranData items.
@@ -44,41 +40,11 @@ public class TranContent extends ArrayAdapter<TranContent.TranItem> {
     public static Map<String, TranItem> ITEM_MAP = new HashMap<String, TranItem>();
 
     /**
-     * LayoutInflater Object to Create View..
-     */
-    private LayoutInflater layoutInflater_;
-
-    /**
      * constructor
      */
-    public TranContent(Context context, int textViewResourceId, List<TranContent.TranItem> objects){
-        super(context, textViewResourceId, objects);
-        layoutInflater_ = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public TranContent(Context context){
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // 特定の行(position)のデータを得る
-        TranContent.TranItem item = (TranContent.TranItem)getItem(position);
-
-        // convertViewは使い回しされている可能性があるのでnullの時だけ新しく作る
-        if (null == convertView) {
-            convertView = layoutInflater_.inflate(android.R.layout.simple_list_item_1, null);
-        }
-
-        // TranContentのデータをViewのWidgetにセットする
-        /*
-        ImageView imageView;
-        imageView = (ImageView)convertView.findViewById(R.id.image);
-        imageView.setImageBitmap(item.getImageData());
-        */
-
-        TextView textView;
-        textView = (TextView)convertView.findViewById(android.R.id.text1);
-        textView.setText(item.toCharSequence());
-
-        return convertView;
-    }
     /**
      * Read Content
      */
@@ -118,7 +84,6 @@ public class TranContent extends ArrayAdapter<TranContent.TranItem> {
     /**
      * get item
      */
-    @Override
     public TranContent.TranItem getItem(int position) {
         return ITEMS.get(position);
     }
@@ -205,13 +170,13 @@ public class TranContent extends ArrayAdapter<TranContent.TranItem> {
          */
         public CharSequence toCharSequence() {
             //
-            String html = "<p><font color=#000000>" + DateFormat.getDateInstance().format(TranDateTime) + "<small>JST</small></font> " +
-                    "<font color=#000000>" + CreditAccount + "</font>" +
-                    "<font color=#000000>" + DebitAccount + "</font>" +
-                    "<font color=#000000>\\" + Amount.toString() + "円</font>" +
-                    "<font color=#000000>税\\" + Tax.toString() + "円</font><br>" +
-                    "<font color=#000000>" + Application + "</font>" +
-                    "<font color=#000000>" + Customer + "様</font><br></p>";
+            String html = "<p><font color=#000000>" + DateFormat.getDateInstance().format(TranDateTime) + "<small>JST</small> </font> " +
+                    "<font color=#000000>" + CreditAccount + " </font>" +
+                    "<font color=#000000>" + DebitAccount + " </font>" +
+                    "<font color=#000000>&yen;" + Amount.toString() + "円 </font>" +
+                    "<font color=#000000>税 &yen;" + Tax.toString() + "円 </font><br>" +
+                    "<font color=#000000>" + Application + " </font>" +
+                    "<font color=#000000>" + Customer + "様 </font><br></p>";
             // fromHtml() の引数にタグ付き文字列を渡す
             // CharSequence source = Html.fromHtml(html);
             CharSequence source = Html.fromHtml(html);

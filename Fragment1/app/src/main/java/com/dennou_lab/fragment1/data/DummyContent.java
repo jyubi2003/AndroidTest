@@ -1,4 +1,4 @@
-package com.dennou_lab.fragment1.dummy;
+package com.dennou_lab.fragment1.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;

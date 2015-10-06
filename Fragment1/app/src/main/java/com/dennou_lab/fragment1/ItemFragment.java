@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
-import com.dennou_lab.fragment1.dummy.TranContent;
+import com.dennou_lab.fragment1.data.ItemFragmentData;
+import com.dennou_lab.fragment1.data.TranContent;
 
 /**
  * A fragment representing a list of Items.
@@ -21,6 +21,8 @@ public class ItemFragment extends ListFragment {
 
 
     private OnFragmentInteractionListener mListener;
+
+    private ItemFragmentData mItemFragmentData;
 
     // TODO: Rename and change types of parameters
     public static ItemFragment newInstance() {
@@ -44,10 +46,14 @@ public class ItemFragment extends ListFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
+        // アクティビティを取得
+        MainActivity mainActivity = (MainActivity)activity;
+
         // TODO: Change Adapter to display your content
         try {
-            TranContent tranContent = new TranContent(activity, android.R.layout.simple_list_item_1, TranContent.ITEMS);
-            tranContent.ReadContent(activity);
+            ItemFragmentData itemFragmentData = new ItemFragmentData(activity, android.R.layout.simple_list_item_1, mainActivity.getTranContent().ITEMS);
+            itemFragmentData.SetupContent();
+
             // setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
             /*
             setListAdapter(new ArrayAdapter<TranContent.TranItem>(
@@ -56,7 +62,7 @@ public class ItemFragment extends ListFragment {
                     android.R.id.text1,
                     tranContent.ITEMS));
             */
-            setListAdapter(tranContent);
+            setListAdapter(itemFragmentData);
         } catch (Exception e) {
             e.printStackTrace();
         }

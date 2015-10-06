@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
+import com.dennou_lab.fragment1.data.TranContent;
 import com.nifty.cloud.mb.*;
 
 
@@ -31,6 +32,11 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    /**
+     * Data Source of transaction data.
+     */
+    private TranContent mTranContent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,14 +49,21 @@ public class MainActivity extends ActionBarActivity
         // アイコン表示
         // setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.neptune);
 
+        // ドロアフラグメントの生成
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+
+        // タイトルを取得（どこから？）
         mTitle = getTitle();
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        // 取引条件のデータソースを作成。読み込みはまだしない。
+        mTranContent = new TranContent(this);
+
     }
 
     @Override
@@ -64,6 +77,12 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+    // 取引データソースの取得
+    public TranContent getTranContent() {
+        return mTranContent;
+    }
+
+    // 画面が設定された
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
