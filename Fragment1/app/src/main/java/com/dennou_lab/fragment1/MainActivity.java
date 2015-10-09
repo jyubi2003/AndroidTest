@@ -3,24 +3,24 @@ package com.dennou_lab.fragment1;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 
 import com.dennou_lab.fragment1.data.TranContent;
-import com.nifty.cloud.mb.*;
 
 
-public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ItemFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, TranListFragment.OnFragmentInteractionListener,{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -99,7 +99,6 @@ public class MainActivity extends ActionBarActivity
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
@@ -173,17 +172,17 @@ public class MainActivity extends ActionBarActivity
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             if(position == 1){
                 fragmentManager.beginTransaction()
-                        .replace(R.id.main_container,ImageFragment.newInstance(R.drawable.yokohama))
+                        .replace(R.id.main_container, HomeFragment.newInstance(R.drawable.yokohama))
                         .commit();
             }
             else if(position == 3){
                 fragmentManager.beginTransaction()
-                        .replace(R.id.main_container, TextFragment.newInstance())
+                        .replace(R.id.main_container, TranFragment.newInstance())
                         .commit();
             }
             else if(position == 2){
                 fragmentManager.beginTransaction()
-                        .replace(R.id.main_container, ItemFragment.newInstance())
+                        .replace(R.id.main_container, TranListFragment.newInstance())
                         .commit();
             }
             return rootView;

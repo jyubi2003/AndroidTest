@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-public class TabActivity extends ActionBarActivity implements ActionBar.TabListener,ItemFragment.OnFragmentInteractionListener {
+public class TabActivity extends ActionBarActivity implements ActionBar.TabListener,TranListFragment.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -196,17 +196,17 @@ public class TabActivity extends ActionBarActivity implements ActionBar.TabListe
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             if(position == 1){
                 fragmentManager.beginTransaction()
-                        .replace(layout.getId(),ImageFragment.newInstance(R.drawable.tulips))
+                        .replace(layout.getId(), HomeFragment.newInstance(R.drawable.tulips))
                         .commit();
             }
             else if(position == 2){
                 fragmentManager.beginTransaction()
-                        .replace(layout.getId(), TextFragment.newInstance())
+                        .replace(layout.getId(), TranFragment.newInstance())
                         .commit();
             }
             else if(position == 3){
                 fragmentManager.beginTransaction()
-                        .replace(layout.getId(), ItemFragment.newInstance())
+                        .replace(layout.getId(), TranListFragment.newInstance())
                         .commit();
             }
             return rootView;
